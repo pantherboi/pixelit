@@ -1,12 +1,12 @@
 //create object
-const px = new pixelit({ from: document.getElementById("pixelitimg") , to:document.getElementById("pixelitcanvas")});
+const px1 = new pixelit({ from: document.getElementById("pixelitimg"), to:document.getElementById("pixelitcanvas1")});
 const px2 = new pixelit({ from: document.getElementById("pixelitimg"), to:document.getElementById("pixelitcanvas2")});
 const px3 = new pixelit({ from: document.getElementById("pixelitimg"), to:document.getElementById("pixelitcanvas3") });
 const px4 = new pixelit({ from: document.getElementById("pixelitimg"), to:document.getElementById("pixelitcanvas4") });
 const px5 = new pixelit({ from: document.getElementById("pixelitimg"), to:document.getElementById("pixelitcanvas5") });
 
 
-const pxList = [px,px2,px3,px4,px5];
+const pxList = [px1,px2,px3,px4,px5];
 
 //stuff for webpage functionality
 const paletteList = [
@@ -172,12 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(() => {
       document.querySelector(".loader").classList.toggle("active");
     }, 800);
-    // px.setScale(blocksize.value).setPalette(paletteList[currentPalette]).draw().pixelate();
-    // px2.setScale(parseInt(blocksize.value)+1).setPalette(paletteList[currentPalette]).draw().pixelate();
-    // px3.setScale(parseInt(blocksize.value)+2).setPalette(paletteList[currentPalette]).draw().pixelate();
-    // px4.setScale(parseInt(blocksize.value)+3).setPalette(paletteList[currentPalette]).draw().pixelate();
-    // px5.setScale(parseInt(blocksize.value)+4).setPalette(paletteList[currentPalette]).draw().pixelate();
-    
+
     for (let i = 0; i < pxList.length; i++) {
       pxList[i].setScale(parseInt(blocksize.value)+i).setPalette(paletteList[currentPalette]).draw().pixelate();
     }
@@ -244,7 +239,7 @@ document.addEventListener("DOMContentLoaded", function () {
     pixelit();
 
     //downloadimage options
-    document.querySelector("#pixelitcanvas").addEventListener("click", function (e) {px.saveImage(); });
+    document.querySelector("#pixelitcanvas1").addEventListener("click", function (e) {px1.saveImage(); });
     document.querySelector("#pixelitcanvas2").addEventListener("click", function (e) {px2.saveImage(); });
     document.querySelector("#pixelitcanvas3").addEventListener("click", function (e) {px3.saveImage(); });
     document.querySelector("#pixelitcanvas4").addEventListener("click", function (e) {px4.saveImage(); });
