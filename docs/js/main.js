@@ -5,6 +5,9 @@ const px3 = new pixelit({ from: document.getElementById("pixelitimg"), to:docume
 const px4 = new pixelit({ from: document.getElementById("pixelitimg"), to:document.getElementById("pixelitcanvas4") });
 const px5 = new pixelit({ from: document.getElementById("pixelitimg"), to:document.getElementById("pixelitcanvas5") });
 
+
+const pxList = [px,px2,px3,px4,px5];
+
 //stuff for webpage functionality
 const paletteList = [
   [
@@ -162,26 +165,30 @@ document.addEventListener("DOMContentLoaded", function () {
       //console.log(px.getPalette());
     };
   };
-
+  
   //function to apply effects
   const pixelit = () => {
     document.querySelector(".loader").classList.toggle("active");
     setTimeout(() => {
       document.querySelector(".loader").classList.toggle("active");
     }, 800);
-    px.setScale(blocksize.value).setPalette(paletteList[currentPalette]).draw().pixelate();
-    px2.setScale(parseInt(blocksize.value)+1).setPalette(paletteList[currentPalette]).draw().pixelate();
-    px3.setScale(parseInt(blocksize.value)+2).setPalette(paletteList[currentPalette]).draw().pixelate();
-    px4.setScale(parseInt(blocksize.value)+3).setPalette(paletteList[currentPalette]).draw().pixelate();
-    px5.setScale(parseInt(blocksize.value)+4).setPalette(paletteList[currentPalette]).draw().pixelate();
-
+    // px.setScale(blocksize.value).setPalette(paletteList[currentPalette]).draw().pixelate();
+    // px2.setScale(parseInt(blocksize.value)+1).setPalette(paletteList[currentPalette]).draw().pixelate();
+    // px3.setScale(parseInt(blocksize.value)+2).setPalette(paletteList[currentPalette]).draw().pixelate();
+    // px4.setScale(parseInt(blocksize.value)+3).setPalette(paletteList[currentPalette]).draw().pixelate();
+    // px5.setScale(parseInt(blocksize.value)+4).setPalette(paletteList[currentPalette]).draw().pixelate();
     
-    greyscale.checked ? px.convertGrayscale() : null;
-    palette.checked ? px.convertPalette() : null;
-    maxheight.value ? px.setMaxHeight(maxheight.value).resizeImage() : null;
-    maxwidth.value ? px.setMaxWidth(maxwidth.value).resizeImage() : null;
-  };
+    for (let i = 0; i < pxList.length; i++) {
+      pxList[i].setScale(parseInt(blocksize.value)+i).setPalette(paletteList[currentPalette]).draw().pixelate();
+    }
+    
+    greyscale.checked ? pxList.forEach(i => i.convertGrayscale()) :  null;
+    palette.checked ? pxList.forEach(i => i.convertPalette()) : null;
+    maxheight.value ? pxList.forEach(i => i.setMaxHeight(maxheight.value).resizeImage()) : null;
+    maxwidth.value ? pxList.forEach(i => i.setMaxWidth(maxwidth.value).resizeImage()) : null;
 
+  };
+  
   const makePaletteGradient = () => {
     //create palette
     let pdivs = "";
@@ -230,23 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //palette
   const palette = document.querySelector("#palette");
   palette.addEventListener("change", pixelit);
-  //maxheight
-  const maxheight = document.querySelector("#maxheight");
-  maxheight.addEventListener("change", pixelit);
-  //maxwidth
-  const maxwidth = document.querySelector("#maxwidth");
-  maxwidth.addEventListener("change", pixelit);
-  //change palette deprecated
-  /*
-  const changePalette = document.querySelector("#changepalette");
-  changePalette.addEventListener("click", function (e) {
-    currentPalette > 0 ? currentPalette-- : (currentPalette = maxPalette - 1);
-    makePaletteGradient();
-    palette.checked = true;
-    pixelit();
-  });
-  */
-
+  
   const pixelimage = document.querySelector("#pixelimage");
   
   pixelimage.addEventListener("click", function (e) {
