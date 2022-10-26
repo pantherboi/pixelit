@@ -1,5 +1,9 @@
 //create object
-const px = new pixelit({ from: document.getElementById("pixelitimg") });
+const px = new pixelit({ from: document.getElementById("pixelitimg") , to:document.getElementById("pixelitcanvas")});
+const px2 = new pixelit({ from: document.getElementById("pixelitimg"), to:document.getElementById("pixelitcanvas2")});
+const px3 = new pixelit({ from: document.getElementById("pixelitimg"), to:document.getElementById("pixelitcanvas3") });
+const px4 = new pixelit({ from: document.getElementById("pixelitimg"), to:document.getElementById("pixelitcanvas4") });
+const px5 = new pixelit({ from: document.getElementById("pixelitimg"), to:document.getElementById("pixelitcanvas5") });
 
 //stuff for webpage functionality
 const paletteList = [
@@ -165,11 +169,13 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(() => {
       document.querySelector(".loader").classList.toggle("active");
     }, 800);
-    px.setScale(blocksize.value)
-      .setPalette(paletteList[currentPalette])
-      .draw()
-      .pixelate();
+    px.setScale(blocksize.value).setPalette(paletteList[currentPalette]).draw().pixelate();
+    px2.setScale(parseInt(blocksize.value)+1).setPalette(paletteList[currentPalette]).draw().pixelate();
+    px3.setScale(parseInt(blocksize.value)+2).setPalette(paletteList[currentPalette]).draw().pixelate();
+    px4.setScale(parseInt(blocksize.value)+3).setPalette(paletteList[currentPalette]).draw().pixelate();
+    px5.setScale(parseInt(blocksize.value)+4).setPalette(paletteList[currentPalette]).draw().pixelate();
 
+    
     greyscale.checked ? px.convertGrayscale() : null;
     palette.checked ? px.convertPalette() : null;
     maxheight.value ? px.setMaxHeight(maxheight.value).resizeImage() : null;
@@ -240,14 +246,18 @@ document.addEventListener("DOMContentLoaded", function () {
     pixelit();
   });
   */
-  //downloadimage options
-  const downloadimage = document.querySelector("#downloadimage");
 
-  downloadimage.addEventListener("click", function (e) {
-    //download image
-    px.saveImage();
+  const pixelimage = document.querySelector("#pixelimage");
+  
+  pixelimage.addEventListener("click", function (e) {
+    pixelit();
+
+    //downloadimage options
+    document.querySelector("#pixelitcanvas").addEventListener("click", function (e) {px.saveImage(); });
+    document.querySelector("#pixelitcanvas2").addEventListener("click", function (e) {px2.saveImage(); });
+    document.querySelector("#pixelitcanvas3").addEventListener("click", function (e) {px3.saveImage(); });
+    document.querySelector("#pixelitcanvas4").addEventListener("click", function (e) {px4.saveImage(); });
+    document.querySelector("#pixelitcanvas5").addEventListener("click", function (e) {px5.saveImage(); });
   });
-
-  //run on page boot to pixelit default image
-  pixelit();
+  
 });
