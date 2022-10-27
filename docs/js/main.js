@@ -156,7 +156,8 @@ document.addEventListener("DOMContentLoaded", function () {
     img.onload = () => {
       //create element
       //document.getElementById('teste').src = img.src;
-      px.setFromImgSource(img.src);
+      // px.setFromImgSource(img.src);
+      pxList.forEach(i => i.setFromImgSource(img.src));
       pixelit();
       //.pixelate()
       //.convertGrayscale()
